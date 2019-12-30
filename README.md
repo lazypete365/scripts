@@ -1,7 +1,7 @@
 # scripts
 These are scripts written mostly for my personal use, but someone else might find a use for them.
 
-They are at the "works for me" stage, so they should be treated as buggy, incomplete, unmaintained and poorly tested. But I am open to suggestions and I will try to keep them functional as long as I keep using them.
+They are at the "works for me" stage, so they should be treated as buggy, incomplete, unmaintained, poorly tested and mildly radioactive. But I am open to suggestions and I will try to keep them functional as long as I keep using them.
 
 I do not maintain any proper documentation for them, at most I try to use the built-in functionality in argparse so that -h provides the basic command-line usage.
 
