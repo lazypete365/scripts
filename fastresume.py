@@ -203,7 +203,6 @@ metadata_fastresume['rtorrent']={
 "timestamp_started":int(time.time())
 }
 
-#print(metadata_fastresume)
 print('infohash='+hashlib.sha1(bencode(metadata['info'])).hexdigest())
 
 if verify_hashes:
@@ -212,10 +211,7 @@ if verify_hashes:
     hashed_pieces = (hashlib.sha1(piece).digest() for piece in pieces_to_hash)
     allhashes=metadata['info']['pieces']
     hashes=(allhashes[i:i+20] for i in range(0, len(allhashes), 20))
-    #print(list(hashed_pieces))
-    #print(list(hashes))
     pairs = itertools.zip_longest(list(hashed_pieces), list(hashes))
-    #print(list(pairs))
     success = all(h1 == h2 for h1, h2 in pairs)
     print('Passed!' if success else 'FAILED', end='\n\n')
     if not success:
