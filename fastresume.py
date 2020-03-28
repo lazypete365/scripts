@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#requires: python3-bencode
+#requires: py3-bencode >= 0.0.3
 import os, sys, hashlib, math, time, argparse, itertools
 from bencode import bencode, bdecode
 
