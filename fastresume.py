@@ -131,22 +131,25 @@ metadata_fastresume=metadata
 
 files=[]
 tsize=0
+sanitized_files=[]
 if 'info' in metadata:
     if 'piece length' in metadata['info']:
         psize=metadata['info']['piece length']
-
     if 'files' in metadata['info']:
         print('multi-file torrent')
         for file in metadata['info']['files']:
+            sanitized_path=[]
             filepath=os.path.join(content_path.encode("utf-8"), sanitize_bytes(metadata['info']['name']))
             for i in file['path']:
+                sanitized_path.append(sanitize_bytes(i))
                 filepath=os.path.join(filepath,sanitize_bytes(i))
             print(filepath)
             files.append(str(filepath,"utf-8"))
             tsize += file['length']
+            sanitized_files.append({'length': file['length'], 'path': sanitized_path})
+        metadata_fastresume['info']['files']=sanitized_files
     else:
         print('single-file torrent')
-
         files.append(os.path.join(content_path,str(metadata['info']['name'], "utf-8")))
         tsize=int(str(metadata['info']['length']))
 chunks=int((tsize + psize - 1)/ psize)
@@ -183,7 +186,7 @@ for i, file in enumerate(files):
         print('Missing files or incorrect download path. Exiting...')
         exit()
 
-        metadata_fastresume['libtorrent_resume']['files'].append({'priority':0 , 'mtime': mtime, 'completed':fchunks})
+    metadata_fastresume['libtorrent_resume']['files'].append({'priority':0 , 'mtime': mtime, 'completed':fchunks})
 metadata_fastresume['libtorrent_resume']['uncertain_pieces.timestamp']=int(time.time())
 
 if 'files' in metadata['info']:
