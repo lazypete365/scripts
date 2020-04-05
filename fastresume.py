@@ -146,7 +146,13 @@ if 'info' in metadata:
             print(filepath)
             files.append(str(filepath,"utf-8"))
             tsize += file['length']
-            sanitized_files.append({'length': file['length'], 'path': sanitized_path})
+            #Some torrent files store file attributes here, which is not 100% standard.
+            #I would love to clean that extra info if present,
+            #but that would change the torrentid and might give tracker problems.
+            if 'attr' in file:
+                sanitized_files.append({'attr': file['attr'], 'length': file['length'], 'path': sanitized_path})
+            else:
+                sanitized_files.append({'length': file['length'], 'path': sanitized_path})
         metadata_fastresume['info']['files']=sanitized_files
     else:
         print('single-file torrent')
