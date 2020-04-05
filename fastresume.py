@@ -138,6 +138,8 @@ if 'info' in metadata:
     if 'files' in metadata['info']:
         print('multi-file torrent')
         for file in metadata['info']['files']:
+            file_info={}
+            file_info.clear()     
             sanitized_path=[]
             filepath=os.path.join(content_path.encode("utf-8"), sanitize_bytes(metadata['info']['name']))
             for i in file['path']:
@@ -149,10 +151,11 @@ if 'info' in metadata:
             #Some torrent files store file attributes here, which is not 100% standard.
             #I would love to clean that extra info if present,
             #but that would change the torrentid and might give tracker problems.
-            if 'attr' in file:
-                sanitized_files.append({'attr': file['attr'], 'length': file['length'], 'path': sanitized_path})
-            else:
-                sanitized_files.append({'length': file['length'], 'path': sanitized_path})
+            if 'attr' in file: file_info['attr']=file['attr']
+            if 'md5sum' in file: file_info['md5sum']=file['md5sum']
+            file_info['length']=file['length']
+            file_info['path']=sanitized_path
+            sanitized_files.append(file_info)
         metadata_fastresume['info']['files']=sanitized_files
     else:
         print('single-file torrent')
