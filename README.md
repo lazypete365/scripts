@@ -11,3 +11,5 @@ Also, some of the command line options might not be fully implemented. I tend to
 |--------------|-----------------------------------------|
 |fastresume.py|Replacement for rtorrent_fast_resume.pl|
 |ff_exporter.py|Exports firefox history, bookmarks and open tabs as text files|
+|mls.py| Tool to find files and directories in MergerFS that are present in multiple branches|
+|consolidate.py|Consolidates a MergerFS directory split between multiple branches. It merges all branches into one, following simple rules (least free space, allowing for a minimum)|
